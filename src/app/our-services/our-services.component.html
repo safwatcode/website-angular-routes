@@ -1,1 +1,6 @@
-<p>our-services works!</p>
+<h2 class="text-center center">Our products</h2>
+<div>
+  <div class="product-card flex" *ngFor="let product of products">
+    <h4>{{ product.title }}</h4>
+    <p>{{ product.description }}</p>
+  </div>
