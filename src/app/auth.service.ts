@@ -9,6 +9,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class AuthService {
   constructor(private _http: HttpClient, private _router: Router) {}
   apiURL = 'https://dummyjson.com/auth/login';
+
   private tokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<
     string | null
   >(null);
@@ -16,18 +17,6 @@ export class AuthService {
   getAccessToken(): Observable<string | null> {
     return this.tokenSubject.asObservable();
   }
-
-  isLogedIn(): boolean {
-    return this.tokenSubject.value !== null;
-  }
-
-  logout() {
-    localStorage.removeItem('accessToken');
-    this.tokenSubject.next(null);
-    console.log('Logged out');
-    this._router.navigate(['login']);
-  }
-
   postLogin(username: string, password: string): Observable<any> {
     return this._http
       .post<any>(this.apiURL, { username: username, password: password })
@@ -42,5 +31,15 @@ export class AuthService {
           // const token;
         })
       );
+  }
+
+  isLogedIn(): boolean {
+    return this.tokenSubject.value !== null;
+  }
+  logout() {
+    localStorage.removeItem('accessToken');
+    this.tokenSubject.next(null);
+    console.log('Logged out');
+    this._router.navigate(['login']);
   }
 }

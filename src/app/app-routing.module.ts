@@ -18,11 +18,12 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard], // ng guard => canActivate
   },
   {
     path: 'our-services',
     component: OurServicesComponent,
+    // canActivate: [authGuard],
   },
   {
     path: 'login',
